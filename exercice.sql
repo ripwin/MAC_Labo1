@@ -58,6 +58,7 @@ BEGIN
 
   SELECT * FROM employe;
 END //
+DELIMITER;
 
 
 
@@ -119,7 +120,38 @@ END //
 
 
 -- Exercice 6
+DROP PROCEDURE IF EXISTS construire_departements;
+DELIMITER //
+CREATE PROCEDURE construire_departements ()
+BEGIN
+  DECLARE a VARCHAR(30) DEFAULT 0;
+  DECLARE done BOOLEAN DEFAULT false;
 
+  DECLARE nb_dep_cursor CURSOR FOR
+    SELECT nom
+    FROM departement
+    GROUP BY nom;
+    
+  DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = true;
+
+  DELETE FROM departement;
+  
+  OPEN nb_dep_cursor;
+
+  REPEAT
+    FETCH nb_dep_cursor INTO a;
+    
+    IF done = false THEN
+      INSERT INTO departement (
+          nom,
+          taille
+      )
+      VALUES (a, (SELECT COUNT(*) FROM employe WHERE nom_departement = a));
+    END IF;
+  UNTIL done END REPEAT;
+  
+  SELECT * FROM departement;
+END //
 
 
 
