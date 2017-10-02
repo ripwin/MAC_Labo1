@@ -126,3 +126,29 @@ END //
 
 
 
+-- Exercice 7
+DELIMITER //
+DROP PROCEDURE IF EXISTS update_salaires //
+CREATE PROCEDURE update_salaires ()
+BEGIN
+  DECLARE n INT DEFAULT 0;
+  DECLARE i INT DEFAULT 0;
+  DECLARE emp_id INT DEFAULT 0;
+  
+  SELECT COUNT(*) FROM employe INTO n;
+  
+  SET i = 0;
+  WHILE i < n DO 
+  
+	-- Select id from ith row
+	SELECT id INTO emp_id
+    FROM employe LIMIT i, 1;
+	
+    -- Update corresponding line
+    UPDATE employe
+    SET salaire = salaire * 1.05
+	WHERE id = emp_id;
+
+    SET i = i + 1;
+  END WHILE;
+END //
