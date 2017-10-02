@@ -117,6 +117,19 @@ BEGIN
   SELECT total;
 END //
 
+DROP PROCEDURE IF EXISTS insert_empl;
+DELIMITER //
+CREATE PROCEDURE insert_empl(nb_empl INT)
+BEGIN
+  DECLARE id INT DEFAULT 0;
+  WHILE id < nb_empl DO
+	
+	INSERT INTO employe (no ,nom ,salaire, nom_departement) VALUES (2, ' ' , 1.0, 'departement_1');
+    set id = id +1;
+  END WHILE;
+    
+END //
+
 
 -- Exercice 6
 
