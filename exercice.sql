@@ -84,7 +84,7 @@ BEGIN
     SET i = i + 1;
   END WHILE;
   
-  SELECT result;
+  SELECT CONCAT('Total : ', result, ' de ', n, ' salaires');
 END //
 
 
