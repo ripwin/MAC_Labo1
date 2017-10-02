@@ -6,6 +6,7 @@
 -- Exercice 1
 SET @nb_lignes = 0;
 
+DROP FUNCTION IF EXISTS test2;
 DELIMITER //
 CREATE FUNCTION test2 ()
 RETURNS INT
@@ -26,6 +27,7 @@ SELECT @nb_lignes
 
 
 -- Exercice 2
+DROP FUNCTION IF EXISTS moyenne
 DELIMITER //
 CREATE FUNCTION moyenne (dep VARCHAR(30))
 RETURNS DECIMAL(10, 2)
@@ -47,6 +49,7 @@ END//
 
 
 -- Exercice 3
+DROP PROCEDURE IF EXISTS miracle;
 DELIMITER //
 CREATE PROCEDURE miracle (dep VARCHAR(30))
 BEGIN
@@ -66,6 +69,7 @@ END //
 -- -------------------------
 
 -- Exercice 4
+DROP PROCEDURE IF EXISTS total_salaires;
 DELIMITER //
 CREATE PROCEDURE total_salaires ()
 BEGIN
@@ -89,6 +93,7 @@ END //
 
 
 -- Exercice 5
+DROP PROCEDURE IF EXISTS total_salaires_2;
 DELIMITER //
 CREATE PROCEDURE total_salaires_2 ()
 BEGIN
@@ -129,7 +134,6 @@ BEGIN
   END WHILE;
     
 END //
-
 
 -- Exercice 6
 
