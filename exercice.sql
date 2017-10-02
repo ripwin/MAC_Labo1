@@ -6,6 +6,7 @@
 -- Exercice 1
 SET @nb_lignes = 0;
 
+DROP FUNCTION IF EXISTS test2;
 DELIMITER //
 CREATE FUNCTION test2 ()
 RETURNS INT
@@ -26,6 +27,7 @@ SELECT @nb_lignes
 
 
 -- Exercice 2
+DROP FUNCTION IF EXISTS moyenne
 DELIMITER //
 CREATE FUNCTION moyenne (dep VARCHAR(30))
 RETURNS DECIMAL(10, 2)
@@ -47,6 +49,7 @@ END//
 
 
 -- Exercice 3
+DROP PROCEDURE IF EXISTS miracle;
 DELIMITER //
 CREATE PROCEDURE miracle (dep VARCHAR(30))
 BEGIN
@@ -67,6 +70,7 @@ DELIMITER;
 -- -------------------------
 
 -- Exercice 4
+DROP PROCEDURE IF EXISTS total_salaires;
 DELIMITER //
 CREATE PROCEDURE total_salaires ()
 BEGIN
@@ -85,11 +89,12 @@ BEGIN
     SET i = i + 1;
   END WHILE;
   
-  SELECT result;
+  SELECT CONCAT('Total : ', result, ' de ', n, ' salaires');
 END //
 
 
 -- Exercice 5
+DROP PROCEDURE IF EXISTS total_salaires_2;
 DELIMITER //
 CREATE PROCEDURE total_salaires_2 ()
 BEGIN
@@ -118,6 +123,18 @@ BEGIN
   SELECT total;
 END //
 
+DROP PROCEDURE IF EXISTS insert_empl;
+DELIMITER //
+CREATE PROCEDURE insert_empl(nb_empl INT)
+BEGIN
+  DECLARE id INT DEFAULT 0;
+  WHILE id < nb_empl DO
+	
+	INSERT INTO employe (no ,nom ,salaire, nom_departement) VALUES (2, ' ' , 1.0, 'departement_1');
+    set id = id +1;
+  END WHILE;
+    
+END //
 
 -- Exercice 6
 DROP PROCEDURE IF EXISTS construire_departements;
@@ -158,3 +175,29 @@ END //
 
 
 
+-- Exercice 7
+DELIMITER //
+DROP PROCEDURE IF EXISTS update_salaires //
+CREATE PROCEDURE update_salaires ()
+BEGIN
+  DECLARE n INT DEFAULT 0;
+  DECLARE i INT DEFAULT 0;
+  DECLARE emp_id INT DEFAULT 0;
+  
+  SELECT COUNT(*) FROM employe INTO n;
+  
+  SET i = 0;
+  WHILE i < n DO 
+  
+	-- Select id from ith row
+	SELECT id INTO emp_id
+    FROM employe LIMIT i, 1;
+	
+    -- Update corresponding line
+    UPDATE employe
+    SET salaire = salaire * 1.05
+	WHERE id = emp_id;
+
+    SET i = i + 1;
+  END WHILE;
+END //
