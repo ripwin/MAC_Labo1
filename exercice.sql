@@ -201,3 +201,13 @@ BEGIN
     SET i = i + 1;
   END WHILE;
 END //
+
+
+-- Exercice 8
+DELIMITER //
+CREATE TRIGGER no_check BEFORE INSERT ON employe
+  FOR EACH ROW BEGIN
+    IF NEW.no < 10000 THEN
+      SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'No must >= 10000';
+    END IF;	
+  END //
